@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: tripora-api
+    runtime: node
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: ADMIN_TOKEN
+        sync: false
+      - key: STORE_DIR
+        value: /var/data/tripora
+    disk:
+      name: tripora-data
+      mountPath: /var/data
+      sizeGB: 1
