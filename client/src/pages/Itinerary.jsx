@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { jsPDF } from 'jspdf';
+import { apiFetch as fetch } from '../lib/api.js';
 import '../styles/global.css';
 
 const ownerHeaders = () => ({

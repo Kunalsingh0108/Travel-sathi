@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/global.css';
+import { apiFetch as fetch } from '../lib/api.js';
 
 export default function Plan() {
   const navigate = useNavigate();

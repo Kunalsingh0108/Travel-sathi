@@ -18,6 +18,17 @@
 If the Render service name is changed, update the destination URL in
 `client/vercel.json` before deploying the client.
 
+## GitHub Pages client
+
+The repository includes `.github/workflows/deploy-pages.yml`. After enabling
+GitHub Pages with **Settings → Pages → Source: GitHub Actions**, every push to
+`main` publishes the client at:
+
+`https://kunalsingh0108.github.io/Travel-sathi/`
+
+The client uses hash-based routes, so refreshing pages works on GitHub Pages.
+The workflow points API requests at the Render service.
+
 ## Local production checks
 
 ```powershell

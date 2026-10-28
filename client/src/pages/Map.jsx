@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import '../styles/global.css';
+import { apiFetch as fetch } from '../lib/api.js';
 import L from 'leaflet';
 
 export default function Map() {

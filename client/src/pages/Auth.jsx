@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { apiFetch as fetch } from '../lib/api.js';
 import '../styles/global.css';
 
 export default function Auth() {
