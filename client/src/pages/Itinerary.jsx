@@ -4,13 +4,13 @@ import { jsPDF } from 'jspdf';
 import { apiFetch as fetch } from '../lib/api.js';
 import '../styles/global.css';
 
-const ownerHeaders = () => ({
-  'x-owner-token': localStorage.getItem('triporaOwnerToken') || '',
-  ...(localStorage.getItem('triporaSessionToken')
-    ? { Authorization: `Bearer ${localStorage.getItem('triporaSessionToken')}` }
-    : {}),
-});
-
+const ownerHeaders = () => {
+  const sessionToken = localStorage.getItem('triporaSessionToken') || '';
+  return {
+    'x-owner-token': localStorage.getItem('triporaOwnerToken') || '',
+    ...(sessionToken ? { Authorization: 'Bearer ' + sessionToken } : {}),
+  };
+};
 export default function Itinerary() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -156,7 +156,7 @@ export default function Itinerary() {
     doc.save(`${(itinerary.destinationName || 'trip').toLowerCase().replace(/\s+/g, '-')}-itinerary.pdf`);
   };
 
-  if (loading && !trip) return <main className="state"><div className="spinner" /><p>Loading itinerary…</p></main>;
+  if (loading && !trip) return <main className="state"><div className="spinner" /><p>Loading itineraryÃ¢â‚¬Â¦</p></main>;
   if (!itinerary) return <main className="state"><p className="state__title">{error || 'Itinerary unavailable.'}</p><Link className="btn btn--pill" to="/plan">Create a trip</Link></main>;
 
   return (
@@ -169,7 +169,7 @@ export default function Itinerary() {
               onClick={() => navigate(-1)}
               aria-label="Go back to the previous page"
             >
-              ← Back
+              Ã¢â€ Â Back
             </button>
             <Link className="btn btn--ghost btn--sm" to="/">Home</Link>
             <Link className="btn btn--ghost btn--sm" to="/trips">My trips</Link>
@@ -195,21 +195,21 @@ export default function Itinerary() {
 
         <section className="card" aria-label="Budget summary" style={{ marginBottom: 32 }}>
           <div className="row row--between wrap">
-            <div><p className="small muted">Total estimated cost</p><strong className="h-card">₹{Number(budget?.total || 0).toLocaleString()}</strong></div>
-            <div><p className="small muted">Budget limit</p><strong className="h-card">₹{Number(budget?.budgetLimit || 0).toLocaleString()}</strong></div>
-            <div><p className="small muted">Per traveller</p><strong className="h-card">₹{Number(budget?.perPerson || 0).toLocaleString()}</strong></div>
+            <div><p className="small muted">Total estimated cost</p><strong className="h-card">Ã¢â€šÂ¹{Number(budget?.total || 0).toLocaleString()}</strong></div>
+            <div><p className="small muted">Budget limit</p><strong className="h-card">Ã¢â€šÂ¹{Number(budget?.budgetLimit || 0).toLocaleString()}</strong></div>
+            <div><p className="small muted">Per traveller</p><strong className="h-card">Ã¢â€šÂ¹{Number(budget?.perPerson || 0).toLocaleString()}</strong></div>
           </div>
           <div className="row wrap" style={{ marginTop: 16 }}>
-            {(budget?.lines || []).map((line) => <span className="tag tag--estimate" key={line.key}>{line.label}: ₹{line.amount.toLocaleString()}</span>)}
+            {(budget?.lines || []).map((line) => <span className="tag tag--estimate" key={line.key}>{line.label}: Ã¢â€šÂ¹{line.amount.toLocaleString()}</span>)}
           </div>
-          {budget?.overBudget && <div className="notice notice--warn" style={{ marginTop: 16 }}>This estimate exceeds your budget by ₹{Math.abs(budget.remaining).toLocaleString()}.</div>}
+          {budget?.overBudget && <div className="notice notice--warn" style={{ marginTop: 16 }}>This estimate exceeds your budget by Ã¢â€šÂ¹{Math.abs(budget.remaining).toLocaleString()}.</div>}
           <p className="small muted" style={{ marginTop: 12 }}>{budget?.estimateNote}</p>
         </section>
 
         {itinerary.days.map((day) => (
           <section key={day.dayNumber} style={{ marginBottom: 34 }}>
             <div className="row row--between">
-              <h2 className="h-card">Day {day.dayNumber} — {day.dateLabel}</h2>
+              <h2 className="h-card">Day {day.dayNumber} Ã¢â‚¬â€ {day.dateLabel}</h2>
               <span className="tag">{day.scheduleStatus}</span>
             </div>
             <div className="stack" style={{ gap: 10, marginTop: 14 }}>
@@ -217,13 +217,13 @@ export default function Itinerary() {
                 <article className="card" key={activity.id}>
                   <div className="row row--between wrap">
                     <div><span className="tag">{activity.kind === 'meal' ? 'meal break' : activity.category || 'activity'}</span><h3 className="h-card" style={{ marginTop: 8 }}>{activity.name}</h3></div>
-                    <strong>{activity.startTime}–{activity.endTime}</strong>
+                    <strong>{activity.startTime}Ã¢â‚¬â€œ{activity.endTime}</strong>
                   </div>
                   <p className="muted small" style={{ marginTop: 8 }}>{activity.explanation || activity.description}</p>
                   <div className="row wrap small muted" style={{ marginTop: 10 }}>
                     <span>{activity.durationMin} min</span>
                     {activity.travelMinutesFromPrev > 0 && <span>Travel {activity.travelMinutesFromPrev} min</span>}
-                    {activity.costPerPerson != null && <span>₹{activity.costPerPerson} per person (estimate)</span>}
+                    {activity.costPerPerson != null && <span>Ã¢â€šÂ¹{activity.costPerPerson} per person (estimate)</span>}
                     {activity.coordinates && <a href={`https://www.openstreetmap.org/?mlat=${activity.coordinates.lat}&mlon=${activity.coordinates.lng}`} target="_blank" rel="noreferrer">Open location</a>}
                   </div>
                   {activity.kind === 'attraction' && <div className="row wrap" style={{ marginTop: 12 }}>
@@ -239,9 +239,9 @@ export default function Itinerary() {
 
         <section className="card">
           <h2 className="h-card">Replan this trip</h2>
-          <p className="small muted" style={{ margin: '8px 0 14px' }}>Try “Make Day 2 less busy”, “Reduce the total budget”, or “Include more nature activities”.</p>
+          <p className="small muted" style={{ margin: '8px 0 14px' }}>Try Ã¢â‚¬Å“Make Day 2 less busyÃ¢â‚¬Â, Ã¢â‚¬Å“Reduce the total budgetÃ¢â‚¬Â, or Ã¢â‚¬Å“Include more nature activitiesÃ¢â‚¬Â.</p>
           <form className="row wrap" onSubmit={replan}>
-            <input style={{ flex: 1, minWidth: 220 }} value={request} onChange={(event) => setRequest(event.target.value)} placeholder="Describe a change…" aria-label="Replanning request" />
+            <input style={{ flex: 1, minWidth: 220 }} value={request} onChange={(event) => setRequest(event.target.value)} placeholder="Describe a changeÃ¢â‚¬Â¦" aria-label="Replanning request" />
             <button className="btn btn--pill" disabled={loading}>Apply change</button>
           </form>
         </section>
@@ -261,7 +261,7 @@ function EditDialog({ editing, days, onClose, onSubmit }) {
         <h2 className="h-card">{editing.type === 'remove' ? 'Remove activity?' : 'Edit activity'}</h2>
         <p className="muted">{editing.activity.name}</p>
         {editing.type === 'time' && <input type="time" value={time} onChange={(event) => setTime(event.target.value)} />}
-        {editing.type === 'move' && <select value={day} onChange={(event) => setDay(Number(event.target.value))}>{days.map((item) => <option key={item.dayNumber} value={item.dayNumber}>Day {item.dayNumber} — {item.dateLabel}</option>)}</select>}
+        {editing.type === 'move' && <select value={day} onChange={(event) => setDay(Number(event.target.value))}>{days.map((item) => <option key={item.dayNumber} value={item.dayNumber}>Day {item.dayNumber} Ã¢â‚¬â€ {item.dateLabel}</option>)}</select>}
         <div className="row" style={{ marginTop: 18 }}>
           <button className="btn btn--pill" onClick={() => onSubmit({ type: editing.type, activityId: editing.activity.id, ...(editing.type === 'time' ? { startTime: time } : {}), ...(editing.type === 'move' ? { dayNumber: day } : {}) })}>{editing.type === 'remove' ? 'Remove' : 'Save'}</button>
           <button className="btn btn--ghost" onClick={onClose}>Cancel</button>

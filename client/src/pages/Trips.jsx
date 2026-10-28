@@ -15,7 +15,7 @@ export default function Trips() {
       headers: {
         'x-owner-token': ownerToken || '',
         ...(localStorage.getItem('triporaSessionToken')
-          ? { Authorization: `Bearer ${localStorage.getItem('triporaSessionToken')}` }
+          ? { Authorization: 'Bearer ' + localStorage.getItem('triporaSessionToken') }
           : {}),
       },
     })
@@ -36,7 +36,7 @@ export default function Trips() {
       <main className="state" style={{ padding: 48 }}>
         <div>
           <div className="spinner" />
-          <p style={{ fontSize: 16, color: '#7f8c8d' }}>Loading your trips…</p>
+          <p style={{ fontSize: 16, color: '#7f8c8d' }}>Loading your tripsÃ¢â‚¬Â¦</p>
         </div>
       </main>
     );
@@ -63,7 +63,7 @@ export default function Trips() {
     <main style={{ padding: 24 }}>
       <div className="container">
         <div className="row row--between wrap" style={{ marginBottom: 32 }}>
-          <a className="btn btn--ghost btn--sm" href="/">← Home</a>
+          <a className="btn btn--ghost btn--sm" href="/">Ã¢â€ Â Home</a>
           <a className="btn btn--pill btn--sm" href="/plan">Plan a new journey</a>
         </div>
 
@@ -120,7 +120,7 @@ export default function Trips() {
                     margin: '0 0 12px',
                   }}
                 >
-                  {trip.dayCount || 0} day(s) • Saved {trip.createdAt ? new Date(trip.createdAt).toLocaleDateString() : '—'}
+                  {trip.dayCount || 0} day(s) Ã¢â‚¬Â¢ Saved {trip.createdAt ? new Date(trip.createdAt).toLocaleDateString() : 'Ã¢â‚¬â€'}
                 </p>
                 <p
                   style={{
@@ -130,7 +130,7 @@ export default function Trips() {
                     margin: 0,
                   }}
                 >
-                  ₹{Number(trip.totalCost || 0).toLocaleString()}
+                  Ã¢â€šÂ¹{Number(trip.totalCost || 0).toLocaleString()}
                 </p>
               </div>
               <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 12 }}>

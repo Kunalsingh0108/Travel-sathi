@@ -73,7 +73,7 @@ export default function Plan() {
 
     try {
       const sessionToken = localStorage.getItem('triporaSessionToken');
-      const authHeaders = sessionToken ? { Authorization: `Bearer ${sessionToken}` } : {};
+      const authHeaders = sessionToken ? { Authorization: 'Bearer ' + sessionToken } : {};
       const generateResponse = await fetch('/api/itinerary/generate', {
         method: 'POST',
         headers: {
@@ -147,7 +147,7 @@ export default function Plan() {
     <main style={{ padding: 24 }}>
       <div className="container">
         <nav className="row row--between wrap" aria-label="Trip planning navigation" style={{ marginBottom: 32 }}>
-          <a className="btn btn--ghost btn--sm" href="/">← Home</a>
+          <a className="btn btn--ghost btn--sm" href="/">Ã¢â€ Â Home</a>
           <a className="btn btn--pill btn--sm" href="/trips">My Trip</a>
         </nav>
 
@@ -180,7 +180,7 @@ export default function Plan() {
               style={{ padding: '48px 24px' }}
             >
               <div className="spinner" />
-              <p style={{ fontSize: 16, color: '#7f8c8d' }}>Generating your itinerary…</p>
+              <p style={{ fontSize: 16, color: '#7f8c8d' }}>Generating your itineraryÃ¢â‚¬Â¦</p>
             </div>
           )}
 
@@ -212,7 +212,7 @@ export default function Plan() {
                 }}
                 required
               >
-                <option value="">Select a destination…</option>
+                <option value="">Select a destinationÃ¢â‚¬Â¦</option>
                 <option value="goa">Goa, India</option>
                 <option value="jaipur">Jaipur, India</option>
                 <option value="agra">Agra, India</option>
@@ -458,7 +458,7 @@ export default function Plan() {
                   width: '100%',
                 }}
               >
-                <option value="">Select transport…</option>
+                <option value="">Select transportÃ¢â‚¬Â¦</option>
                 <option value="walk">Walk</option>
                 <option value="public">Public transport</option>
                 <option value="scooter">Scooter</option>
@@ -555,7 +555,7 @@ export default function Plan() {
                 className="btn btn--pill"
                 disabled={loading}
               >
-                {loading ? 'Generating…' : 'Generate itinerary'}
+                {loading ? 'GeneratingÃ¢â‚¬Â¦' : 'Generate itinerary'}
               </button>
             </div>
           </form>
@@ -564,7 +564,7 @@ export default function Plan() {
         <div
           style={{ marginTop: 40, textAlign: 'center', color: '#7f8c8d', fontSize: 14 }}
         >
-          <p>Continue as guest — no registration required.</p>
+          <p>Continue as guest Ã¢â‚¬â€ no registration required.</p>
         </div>
       </div>
     </main>
